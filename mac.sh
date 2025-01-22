@@ -19,6 +19,10 @@ check_mac() {
     fi
 }
 
+if [[ "$#" -ne 2 ]]; then
+    help
+fi
+
 interface=$1
 new_mac=$2
 
@@ -27,24 +31,22 @@ if [[ $EUID -ne 0 ]]; then
     exit 1
 fi
 
-if [[ "$#" -ne 2 ]]; then
-    echo "Usage: $0 <network-interface> <new-mac-address>"
-    exit 1
-fi
-
 if ! ip link show "$interface" &> /dev/null; then
     echo "Error: Network interface '$interface' not found."
     exit 1
 fi
 
+if [[ "$new_mac" != "random" && "$new_mac" != "reset" ]]; then
+    check_mac "$new_mac"
+fi
+
 mac_down () {
-    sudo ip link set dev $1 down
+    sudo ip link set dev "$1" down
 }
 
 mac_up () {
-    sudo ip link set dev $1 up
+    sudo ip link set dev "$1" up
 }
-
 
 install_macchanger() {
     echo "Macchanger is not installed. Installing mcchanger..."
@@ -52,15 +54,21 @@ install_macchanger() {
     sudo apt install -y macchanger
 }
 
+if ! command -v macchanger &> /dev/null; then
+    install_macchanger
+fi
+
 random_mac() {
-    sudo macchanger -r $1
+    sudo macchanger -r "$1"
 }
 
 change_mac() {
-    sudo macchanger --mac= $2 interface
-}
+    sudo macchanger --mac="$2" "$1"
+}"
 
 original_mac() {
-    sudo macchanger -p interface
+    sudo macchanger -p "$1"
 }
 
+if [[ "$new_mac" == "random" ]]; then
+    random_mac "interface"
