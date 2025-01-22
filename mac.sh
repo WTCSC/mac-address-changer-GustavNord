@@ -70,5 +70,14 @@ original_mac() {
     sudo macchanger -p "$1"
 }
 
+mac_down "$interface"
+
 if [[ "$new_mac" == "random" ]]; then
-    random_mac "interface"
+    random_mac "$interface"
+elif [[ "$new_mac" == "reset" ]]; then
+    original_mac "$interface"
+else
+    change_mac "$interface" "$new_mac"
+fi
+
+mac_up "$interface"
