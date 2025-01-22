@@ -52,7 +52,7 @@ mac_up () {
 install_macchanger() {
     echo "Macchanger is not installed. Installing mcchanger..."
     sudo apt update
-    sudo apt install -y macchanger || {echo "Error: failed to install mcchanger."; exit 1; }
+    sudo apt install -y macchanger || {echo "Error: Failed to install mcchanger."; exit 1; }
 }
 
 if ! command -v macchanger &> /dev/null; then
@@ -60,15 +60,15 @@ if ! command -v macchanger &> /dev/null; then
 fi
 
 random_mac() {
-    sudo macchanger -r "$1" || {echo "Error}
+    sudo macchanger -r "$1" || {echo "Error: Failed to set random MAC address."; exit 1; }
 }
 
 change_mac() {
-    sudo macchanger --mac="$2" "$1"
+    sudo macchanger --mac="$2" "$1" || {echo "Error: Failed to change MAC address."; exit 1; }
 }
 
 original_mac() {
-    sudo macchanger -p "$1"
+    sudo macchanger -p "$1" || {echo "Error: Failed to reset MAC address to Original MAC address."; exit 1; }
 }
 
 mac_down "$interface"
