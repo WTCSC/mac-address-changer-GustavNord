@@ -64,7 +64,7 @@ random_mac() {
 
 change_mac() {
     sudo macchanger --mac="$2" "$1"
-}"
+}
 
 original_mac() {
     sudo macchanger -p "$1"
