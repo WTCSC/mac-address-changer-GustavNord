@@ -5,6 +5,7 @@ help() {
     echo "$0 ,network-interface> <new-mac-address>"
     echo "Example: $0 eth0 00:1A:2B:3C:4D:5E"
     echo "Example for random MAC: $0 eth0 random"
+    echo "Example to reset MAC address: $0 eth0 reset"
     exit 1
 }
 
@@ -41,17 +42,17 @@ if [[ "$new_mac" != "random" && "$new_mac" != "reset" ]]; then
 fi
 
 mac_down () {
-    sudo ip link set dev "$1" down
+    sudo ip link set dev "$1" down || {echo "Error: Failed to bring the interface down."; exit 1; }
 }
 
 mac_up () {
-    sudo ip link set dev "$1" up
+    sudo ip link set dev "$1" up || {echo "Error: Failed to bring the interface up."; exit 1; }
 }
 
 install_macchanger() {
     echo "Macchanger is not installed. Installing mcchanger..."
     sudo apt update
-    sudo apt install -y macchanger
+    sudo apt install -y macchanger || {echo "Error: failed to install mcchanger."; exit 1; }
 }
 
 if ! command -v macchanger &> /dev/null; then
@@ -59,7 +60,7 @@ if ! command -v macchanger &> /dev/null; then
 fi
 
 random_mac() {
-    sudo macchanger -r "$1"
+    sudo macchanger -r "$1" || {echo "Error}
 }
 
 change_mac() {
