@@ -25,4 +25,30 @@ if [[ $EUID -ne 0 ]]; then
     exit 1
 fi
 
+if [[ "$#" -ne 0 ]]; then
+    echo "Usage: $0 <network-interface> <new-mac-address>"
+    exit 1
+fi
 
+if ! ip link show "$INTERFACE" &> /dev/null; then
+    echo "Error: Network interface '$INTERFACE' not found."
+    exit 1
+fi
+
+install_macchanger() {
+    echo "Macchanger is not installed. Installing mcchanger..."
+    sudo apt update
+    sudo apt install -y macchanger
+}
+
+random_mac() {
+    sudo macchanger -r $2
+}
+
+change_mac() {
+    sudo macchanger --mac= $3 interface
+}
+
+original_mac() {
+    sudo macchanger -p interface
+}
