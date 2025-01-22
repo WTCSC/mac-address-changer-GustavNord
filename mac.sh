@@ -2,7 +2,9 @@
 
 help() {
     echo "How to use this script:"
-
+    echo "$0 ,network-interface> <new-mac-address>"
+    echo "Example: $0 eth0 00:1A:2B:3C:4D:5E"
+    echo "Example for random MAC: $0 eth0 random"
     exit 1
 }
 
@@ -17,23 +19,32 @@ check_mac() {
     fi
 }
 
-interface=$2
-new_mac=$3
+interface=$1
+new_mac=$2
 
 if [[ $EUID -ne 0 ]]; then
     echo "Error: Script needs to be run with sudo or as root."
     exit 1
 fi
 
-if [[ "$#" -ne 0 ]]; then
+if [[ "$#" -ne 2 ]]; then
     echo "Usage: $0 <network-interface> <new-mac-address>"
     exit 1
 fi
 
-if ! ip link show "$INTERFACE" &> /dev/null; then
-    echo "Error: Network interface '$INTERFACE' not found."
+if ! ip link show "$interface" &> /dev/null; then
+    echo "Error: Network interface '$interface' not found."
     exit 1
 fi
+
+mac_down () {
+    sudo ip link set dev $1 down
+}
+
+mac_up () {
+    sudo ip link set dev $1 up
+}
+
 
 install_macchanger() {
     echo "Macchanger is not installed. Installing mcchanger..."
@@ -42,13 +53,14 @@ install_macchanger() {
 }
 
 random_mac() {
-    sudo macchanger -r $2
+    sudo macchanger -r $1
 }
 
 change_mac() {
-    sudo macchanger --mac= $3 interface
+    sudo macchanger --mac= $2 interface
 }
 
 original_mac() {
     sudo macchanger -p interface
 }
+
