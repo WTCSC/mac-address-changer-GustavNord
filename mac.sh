@@ -81,3 +81,4 @@ else
 fi
 
 mac_up "$interface"
+echo "Current MAC address of '$interface':" ip link show "$interface" | grep ether | awk '{print $2}'
