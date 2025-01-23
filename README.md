@@ -10,7 +10,7 @@ This script allows users to change the MAC address of a specified network interf
 
 This script will disable and enable the network interface to ensure system stability when changing the MAC address. 
 
----
+
 ## Installation Instructions
 1. Clone or download repository.
 2. Ensure the script is executable
@@ -22,10 +22,28 @@ chmod +x mac.sh
 sudo apt install mcchanger
 ```
 
-
-
 ## Usage
+Run this script from the command line to change the MAC address of the specified network interface.
 
+Basic command format:
+```bash
+./mac.sh <network-interface> <new-mac-address>
+```
+
+Example:
+```bash
+./mac.sh eth0 00:1A:2B:3C:4D:5E
+```
+
+To reset (revert to original):
+```bash
+./mac.sh eth0 reset
+```
+
+To generate and use a random MAC address:
+```bash
+./mac.sh eth0 random
+```
 
 
 ## Command-Line Arguments
