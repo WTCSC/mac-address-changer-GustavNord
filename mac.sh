@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 help() {
     echo "How to use this script:"
@@ -21,6 +22,7 @@ check_mac() {
 }
 
 if [[ "$#" -ne 2 ]]; then
+    echo "Error: Invalid number of arguments."
     help
 fi
 
@@ -82,4 +84,4 @@ else
 fi
 
 mac_up "$interface"
-echo "Current MAC address of '$interface':" ip link show "$interface" | grep ether | awk '{print $2}'
+echo "Current MAC address of '$interface': $(ip link show "$interface" | grep ether | awk '{print $2}')"
