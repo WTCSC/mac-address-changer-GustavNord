@@ -10,6 +10,11 @@ This script allows users to change the MAC address of a specified network interf
 
 This script will disable and enable the network interface to ensure system stability when changing the MAC address. 
 
+This script assumes that the system used uses `apt`. If your system does not use `apt`, you have to manually install `macchanger`.
+
+The MAC address format for this script is `00:1A:2B:3C:4D:5E` or `XX:XX:XX:XX:XX:XX` where `X` is a hexadecimal number (0-9, a-f).
+
+This script only works if `macchanger` is installed. The script will automatically attempt to install it if it's missing. 
 
 ## Installation Instructions
 1. Clone or download repository.
@@ -69,6 +74,8 @@ This script includes error handling for some situations.
 
 - **Invalid MAC address format:** If the MAC address provided is not in the correct format.
    * Error: `"Error: The MAC address isn't in the correct format."`
+
+## Troubleshooting
 
 
 ## Examples
