@@ -16,13 +16,13 @@ This script allows users to change the MAC address of a network interface. It ca
 ## Installation Instructions
 1. Clone or download repository.
 2. Ensure the script is executable
-   ´´´bash
-   chmod +x mac.sh
-   ´´´
+´´´bash
+chmod +x mac.sh
+´´´
 3. Install macchanger (also included in script):
-   ´´´bash
-   sudo apt install mcchanger
-   ´´´
+´´´bash
+sudo apt install mcchanger
+´´´
 
 
 
