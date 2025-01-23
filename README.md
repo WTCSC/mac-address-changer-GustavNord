@@ -82,7 +82,7 @@ This script includes error handling for some situations.
 - **Network interface not found**
    * Solution: Make sure the specified network interface exists on your system.
 
--**MAC Address format error**
+- **MAC Address format error**
    * Solution: Make sure that the MAC address is in the correct format. The MAC address format for this script is `00:1A:2B:3C:4D:5E` or `XX:XX:XX:XX:XX:XX` where `X` is a hexadecimal number (0-9, a-f).
 
 ## Examples
