@@ -58,11 +58,19 @@ This script accepts two command line arguments
 
 ## Error Handling
 This script includes error handling for some situations.
-- **Running as root:** The script must be run with ´sudo´ or as root to be able to modify the network settings.
-   * Error: ´"Error: Script needs to be run with sudo or as root."´
-   
+- **Running as root:** The script must be run with `sudo` or as root to be able to modify the network settings.
+   * Error: `"Error: Script needs to be run with sudo or as root."`
 
- 
+- **Invalid arguments:** The script will show an error if the wrong number of arguments are given.
+   * Error: `"Error: Invalid number of arguments."`
+
+- **Network interface not found:** Will return an error if the specified network interface does not exist.
+   * Error: `"Error: Network interface '<interface>' not found."`
+
+- **Invalid MAC address format:** If the MAC address provided is not in the correct format.
+   * Error: `"Error: The MAC address isn't in the correct format."`
+
+
 ## Examples
 
 
