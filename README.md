@@ -32,7 +32,7 @@ Run this script from the command line to change the MAC address of the specified
 
 Basic command format:
 ```bash
-sudo ./mac.sh <network-interface> <new-mac-address>
+sudo ./mac.sh network-interface new-mac-address
 ```
 
 Example:
