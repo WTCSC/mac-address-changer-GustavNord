@@ -32,22 +32,22 @@ Run this script from the command line to change the MAC address of the specified
 
 Basic command format:
 ```bash
-./mac.sh <network-interface> <new-mac-address>
+sudo ./mac.sh <network-interface> <new-mac-address>
 ```
 
 Example:
 ```bash
-./mac.sh eth0 00:1A:2B:3C:4D:5E
+sudo ./mac.sh eth0 00:1A:2B:3C:4D:5E
 ```
 
 To reset (revert to original):
 ```bash
-./mac.sh eth0 reset
+sudo ./mac.sh eth0 reset
 ```
 
 To generate and use a random MAC address:
 ```bash
-./mac.sh eth0 random
+sudo ./mac.sh eth0 random
 ```
 
 
@@ -89,16 +89,27 @@ This script includes error handling for some situations.
 - Set a custom MAC address:
 
 ```bash
-./mac.sh eth0 00:1A:2B:3C:4D:5E
+sudo ./mac.sh eth0 00:1A:2B:3C:4D:5E
 ```
 
 - Generate and use random MAC address:
 
 ```bash
-./mac.sh eth0 random
+sudo ./mac.sh eth0 random
 ```
 
 - Revert to original MAC address:
 ```bash
-./mac.sh eth0 reset
+sudo ./mac.sh eth0 reset
+```
+
+---
+Example of the script results:
+
+```bash
+$ sudo ./mac.sh eth0 00:1A:2B:3C:4D:5E
+Bringing down the network interface eth0...
+Changing MAC address of eth0 to 00:1A:2B:3C:4D:5E...
+Bringing up the network interface eth0...
+Current MAC address of 'eth0': 00:1A:2B:3C:4D:5E
 ```
