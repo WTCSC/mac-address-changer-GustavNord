@@ -44,11 +44,11 @@ if [[ "$new_mac" != "random" && "$new_mac" != "reset" ]]; then
 fi
 
 mac_down () {
-    sudo ip link set dev "$1" down
+    ip link set dev "$1" down
 }
 
 mac_up () {
-    sudo ip link set dev "$1" up
+    ip link set dev "$1" up
 }
 
 install_macchanger() {
@@ -57,8 +57,8 @@ install_macchanger() {
         echo "Error: This script is for systems that support 'apt'. Install macchanger manually."
         exit 1
     fi
-    sudo apt update
-    sudo apt install -y macchanger
+    apt update
+    apt install -y macchanger
 }
 if ! command -v macchanger &> /dev/null; then
     install_macchanger
