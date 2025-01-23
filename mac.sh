@@ -44,33 +44,35 @@ if [[ "$new_mac" != "random" && "$new_mac" != "reset" ]]; then
 fi
 
 mac_down () {
-    sudo ip link set dev "$1" down || {echo "Error: Failed to bring the interface down."; exit 1; }
+    sudo ip link set dev "$1" down
 }
 
 mac_up () {
-    sudo ip link set dev "$1" up || {echo "Error: Failed to bring the interface up."; exit 1; }
+    sudo ip link set dev "$1" up
 }
 
 install_macchanger() {
     echo "Macchanger is not installed. Installing mcchanger..."
+    if ! command -v apt &> /dev/null; then
+        echo "Error: This script is for systems that support 'apt'. Install macchanger manually."
+        exit 1
+    fi
     sudo apt update
-    sudo apt install -y macchanger || {echo "Error: Failed to install mcchanger."; exit 1; }
+    sudo apt install -y macchanger
 }
-
 if ! command -v macchanger &> /dev/null; then
     install_macchanger
 fi
 
 random_mac() {
-    sudo macchanger -r "$1" || {echo "Error: Failed to set random MAC address."; exit 1; }
+    sudo macchanger -r "$1"
 }
-
 change_mac() {
-    sudo macchanger --mac="$2" "$1" || {echo "Error: Failed to change MAC address."; exit 1; }
+    sudo macchanger --mac="$2" "$1"
 }
 
 original_mac() {
-    sudo macchanger -p "$1" || {echo "Error: Failed to reset MAC address to Original MAC address."; exit 1; }
+    sudo macchanger -p "$1"
 }
 
 mac_down "$interface"
