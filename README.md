@@ -57,9 +57,12 @@ This script accepts two command line arguments
 
 
 ## Error Handling
+This script includes error handling for some situations.
+- **Running as root:** The script must be run with ´sudo´ or as root to be able to modify the network settings.
+   * Error: ´"Error: Script needs to be run with sudo or as root."´
+   
 
-
-
+ 
 ## Examples
 
 
