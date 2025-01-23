@@ -2,7 +2,7 @@
 
 help() {
     echo "How to use this script:"
-    echo "$0 ,network-interface> <new-mac-address>"
+    echo "$0 <network-interface> <new-mac-address>"
     echo "Example: $0 eth0 00:1A:2B:3C:4D:5E"
     echo "Example for random MAC: $0 eth0 random"
     echo "Example to reset MAC address: $0 eth0 reset"
