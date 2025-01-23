@@ -24,7 +24,7 @@ chmod +x mac.sh
 ```
 3. Install macchanger (also included in script):
 ```bash
-sudo apt install mcchanger
+sudo apt install macchanger
 ```
 
 ## Usage
@@ -49,7 +49,6 @@ To generate and use a random MAC address:
 ```bash
 sudo ./mac.sh eth0 random
 ```
-
 
 ## Command-Line Arguments
 This script accepts two command line arguments
