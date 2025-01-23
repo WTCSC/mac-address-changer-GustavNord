@@ -9,7 +9,7 @@ This script allows users to change the MAC address of a specified network interf
 - Reset the MAC address to the original MAC address.
 
 This script will disable and enable the network interface to ensure system stability when changing the MAC address. 
-
+---
 ## Installation Instructions
 1. Clone or download repository.
 2. Ensure the script is executable
