@@ -49,10 +49,10 @@ To generate and use a random MAC address:
 ## Command-Line Arguments
 This script accepts two command line arguments
 
-- ***Network Interface
+- * Network Interface:
    The name of the network interface (eth0, wlan0 for example).
 
-- ***New MAC Address
+- * New MAC Address:
    The new MAC address to set to. Using "random" will create a random MAC address and using "reset" will revert the MAC address to the original one. 
 
 
