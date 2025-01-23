@@ -76,13 +76,29 @@ This script includes error handling for some situations.
    * Error: `"Error: The MAC address isn't in the correct format."`
 
 ## Troubleshooting
+- **Macchanger not installed**
+   * Solution: Run `sudo apt install macchanger` to install `macchanger`.
 
+- **Network interface not found**
+   * Solution: Make sure the specified network interface exists on your system.
+
+-**MAC Address format error**
+   * Solution: Make sure that the MAC address is in the correct format. The MAC address format for this script is `00:1A:2B:3C:4D:5E` or `XX:XX:XX:XX:XX:XX` where `X` is a hexadecimal number (0-9, a-f).
 
 ## Examples
+- Set a custom MAC address:
 
+```bash
+./mac.sh eth0 00:1A:2B:3C:4D:5E
+```
 
+- Generate and use random MAC address:
 
-## License
+```bash
+./mac.sh eth0 random
+```
 
-
-
+- Revert to original MAC address:
+```bash
+./mac.sh eth0 reset
+```
