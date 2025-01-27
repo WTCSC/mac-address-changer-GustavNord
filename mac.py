@@ -1,2 +1,2 @@
 def help():
-    print("How to use this script:")
+    print("How to use this script:\n")
