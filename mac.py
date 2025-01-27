@@ -1,3 +1,11 @@
+import subprocess
+import string
+import random
+import re
+
+
+
+
 network_interface = 0
 new_mac_address = 0 
 user_input0 = 0
