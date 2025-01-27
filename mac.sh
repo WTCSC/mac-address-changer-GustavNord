@@ -56,7 +56,7 @@ mac_down () {
     ip link set dev "$1" down
 }
 
-#Function to bring up the network interface, enables the interface again after the changes to the MAC address are done. 
+# Function to bring up the network interface, enables the interface again after the changes to the MAC address are done. 
 mac_up () {
     ip link set dev "$1" up
 }
