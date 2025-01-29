@@ -7,7 +7,7 @@ def help():
     print("How to use this script:")
     print(f"{sys.argv[0]} <network_interface> <new_mac_address>")
     print("Example: {} eth0 00:1A:2B:3C:4D:5E".format(sys.argv[0]))
-    print("Example for random MAC: {} eth0 random">format(sys.argv[0]))
+    print("Example for random MAC: {} eth0 random".format(sys.argv[0]))
     print("Example to reset MAC address: {} eth0 reset".format(sys.argv[0]))
     sys.exit(1)
 
@@ -25,7 +25,6 @@ if len(sys.argv) != 3:
 
 interface = sys.argv[1]
 new_mac = sys.argv[2]
-user_input0 = sys.argv[3]
 
 if os.geteuid() != 0:
     print("Error: Script needs to be run with sudo or as root.")
@@ -72,4 +71,24 @@ def change_mac(interface):
 def original_mac(interface):
     subprocess.run(['macchanger', '-p', interface], check=True)
 
+if new_mac != "random" and new_mac != "reset":
+    check_mac(new_mac)
 
+if subprocess.run(['command', '-v', 'macchanger'], stdout=subprocess.PIPE).returncode != 0:
+    install_macchanger()
+
+mac_down(interface)
+
+if new_mac == "random":
+    random_mac(interface)
+elif new_mac == "reset":
+    original_mac(interface)
+else:
+    change_mac(interface, new_mac)
+
+mac_up(interface)
+
+result = subprocess.run(['ip', 'link', 'show', interface], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+output = result.stdout.decode('utf-8')
+mac_address = re.search(r'ether (\S+)', output).group(1)
+print(f"Current MAC address of '{interface}': {mac_address}")
