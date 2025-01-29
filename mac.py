@@ -11,7 +11,6 @@ def help():
     print("Example to reset MAC address: {} eth0 reset".format(sys.argv[0]))
     sys.exit(1)
 
-
 def check_mac(mac):
     if re.match(r'^([a-fA-F0-9]{2}:){5}[a-fA-F0-9]{2}$', mac):
         return True
@@ -28,7 +27,49 @@ interface = sys.argv[1]
 new_mac = sys.argv[2]
 user_input0 = sys.argv[3]
 
-
 if os.geteuid() != 0:
     print("Error: Script needs to be run with sudo or as root.")
     sys.exit(1)
+
+def interface_exists(interface, timeout=5):
+    try:
+        subprocess.run(['ip', 'link', 'show', interface], check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=timeout)
+        return True
+    except subprocess.CalledProcessError:
+        return False
+    except subprocess.TimeoutExpired:
+        print(F"Error: Checking interface '{interface}' timed out.")
+        return False
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+        return False
+
+if
+    print("Error: Network interface '{interface}' not found.")
+    sys.exit(1)
+
+def mac_up(interface):
+    subprocess.run(['ip', 'link', 'set', 'dev', interface, 'up'], check=True)
+
+def mac_down(interface): 
+    subprocess.run(['ip', 'link', 'set', 'dev', interface, 'down'], check=True)
+
+def install_macchanger():
+    print("Error: Macchanger is not installed. Installing macchanger...")
+    if not subprocess.run(['command', '-v', 'apt'], stdout=subprocess.PIPE, stderr=subprocess.PIPE).returncode == 0:
+        print("Error: This script is for systems that support 'apt'. Install macchanger manually.")
+        sys.exit(1)
+    
+subprocess.run(['apt', 'update'], check=True)
+subprocess.run(['apt', 'install', '-y', 'macchanger'], check=True)
+
+def random_mac(interface):
+    subprocess.run(['macchanger', '-r', interface], check=True
+
+def change_mac(interface):
+    subprocess.run(['macchanger', '--mac', interface], check=True)
+
+def original_mac(interface):
+    subprocess.run(['macchanger', '-p', interface], check=True)
+
+
