@@ -92,3 +92,5 @@ result = subprocess.run(['ip', 'link', 'show', interface], stdout=subprocess.PIP
 output = result.stdout.decode('utf-8')
 mac_address = re.search(r'ether (\S+)', output).group(1)
 print(f"Current MAC address of '{interface}': {mac_address}")
+
+# Notes: Maybe change shell=True to check=True
