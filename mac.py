@@ -44,8 +44,8 @@ def interface_exists(interface, timeout=5):
         print(f"An unexpected error occurred: {e}")
         return False
 
-if
-    print("Error: Network interface '{interface}' not found.")
+if not interface_exists(interface):
+    print(f"Error: Network interface '{interface}' not found.")
     sys.exit(1)
 
 def mac_up(interface):
@@ -64,7 +64,7 @@ subprocess.run(['apt', 'update'], check=True)
 subprocess.run(['apt', 'install', '-y', 'macchanger'], check=True)
 
 def random_mac(interface):
-    subprocess.run(['macchanger', '-r', interface], check=True
+    subprocess.run(['macchanger', '-r', interface], check=True)
 
 def change_mac(interface):
     subprocess.run(['macchanger', '--mac', interface], check=True)
