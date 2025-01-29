@@ -28,3 +28,7 @@ interface = sys.argv[1]
 new_mac = sys.argv[2]
 user_input0 = sys.argv[3]
 
+
+if os.geteuid() != 0:
+    print("Error: Script needs to be run with sudo or as root.")
+    sys.exit(1)
