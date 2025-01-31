@@ -55,18 +55,17 @@ def mac_down(interface):
 
 def install_macchanger():
     print("Error: Macchanger is not installed. Installing macchanger...")
-    if not subprocess.run(['command', '-v', 'apt'], stdout=subprocess.PIPE, stderr=subprocess.PIPE).returncode == 0:
+    if subprocess.run(['command', '-v', 'apt'], stdout=subprocess.PIPE, stderr=subprocess.PIPE).returncode != 0:
         print("Error: This script is for systems that support 'apt'. Install macchanger manually.")
         sys.exit(1)
-    
-subprocess.run(['apt', 'update'], check=True)
-subprocess.run(['apt', 'install', '-y', 'macchanger'], check=True)
+    subprocess.run(['apt', 'update'], check=True)
+    subprocess.run(['apt', 'install', '-y', 'macchanger'], check=True)
 
 def random_mac(interface):
     subprocess.run(['macchanger', '-r', interface], check=True)
 
-def change_mac(interface):
-    subprocess.run(['macchanger', '--mac', interface], check=True)
+def change_mac(interface, new_mac):
+    subprocess.run(['macchanger', '--mac', new_mac, interface], check=True)
 
 def original_mac(interface):
     subprocess.run(['macchanger', '-p', interface], check=True)
@@ -74,7 +73,7 @@ def original_mac(interface):
 if new_mac != "random" and new_mac != "reset":
     check_mac(new_mac)
 
-if subprocess.run(['command', '-v', 'macchanger'], stdout=subprocess.PIPE).returncode != 0:
+if subprocess.run(['command', '-v', 'macchanger'], stdout=subprocess.PIPE, text=True).returncode != 0:
     install_macchanger()
 
 mac_down(interface)
@@ -88,9 +87,11 @@ else:
 
 mac_up(interface)
 
-result = subprocess.run(['ip', 'link', 'show', interface], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-output = result.stdout.decode('utf-8')
-mac_address = re.search(r'ether (\S+)', output).group(1)
-print(f"Current MAC address of '{interface}': {mac_address}")
-
-# Notes: Maybe change shell=True to check=True
+result = subprocess.run(['ip', 'link', 'show', interface], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+output = result.stdout
+match = re.search(r'ether (\S+)', output)
+if match:
+    mac_address = match.group(1)
+    print(f"Current MAC address of '{interface}': {mac_address}")
+else:
+    print("Error: Failed to retrieve the current MAC address.")
