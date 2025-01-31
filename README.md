@@ -1,5 +1,5 @@
 # MAC Address changer
-This script allows users to change the MAC address of a network interface. It can be used to set a custom MAC address, create a random MAC address, or revert back to the original MAC address. This script handles the installation of macchanger if it's not installed already.
+This script allows users to change the MAC address of a network interface. It can be used to set a custom MAC address, create a random MAC address, or revert back to the original MAC address. This script handles the installation of macchanger if it's not installed already. It works for both Python and Shell.
 
 ---
 ## Introduction
@@ -19,15 +19,24 @@ This script only works if `macchanger` is installed. The script will automatical
 ## Installation Instructions
 1. Clone or download repository.
 2. Ensure the script is executable
+
+- For shell script:
 ```bash
 chmod +x mac.sh
 ```
+
+- For Python script:
+```python
+chmod +x mac.py
+```
+
 3. Install macchanger (also included in script):
 ```bash
 sudo apt install macchanger
 ```
 
 ## Usage
+### Shell Script
 Run this script from the command line to change the MAC address of the specified network interface.
 
 Basic command format:
@@ -49,6 +58,30 @@ To generate and use a random MAC address:
 ```bash
 sudo ./mac.sh eth0 random
 ```
+
+### Python Script
+Run this script from the command line to change the MAC address of the specified network interface.
+
+Basic command format:
+```python
+sudo python3 mac.py network-interface new-mac-address
+```
+
+Example:
+```python
+sudo python3 mac.py eth0 00:1A:2B:3C:4D:5E
+```
+
+To reset (revert to original):
+```python
+sudo python3 mac.py eth0 reset
+```
+
+To generate and use a random MAC address:
+```python
+sudo python3 mac.py eth0 random
+```
+
 
 ## Command-Line Arguments
 This script accepts two command line arguments
@@ -85,6 +118,7 @@ This script includes error handling for some situations.
    * Solution: Make sure that the MAC address is in the correct format. The MAC address format for this script is `00:1A:2B:3C:4D:5E` or `XX:XX:XX:XX:XX:XX` where `X` is a hexadecimal number (0-9, a-f).
 
 ## Examples
+### Shell Script
 - Set a custom MAC address:
 
 ```bash
@@ -107,6 +141,35 @@ Example of the script results:
 
 ```bash
 $ sudo ./mac.sh eth0 00:1A:2B:3C:4D:5E
+Bringing down the network interface eth0...
+Changing MAC address of eth0 to 00:1A:2B:3C:4D:5E...
+Bringing up the network interface eth0...
+Current MAC address of 'eth0': 00:1A:2B:3C:4D:5E
+```
+
+### Python Script
+- Set a custom MAC address:
+
+```python
+sudo python3 mac.py eth0 00:1A:2B:3C:4D:5E
+```
+
+- Generate and use random MAC address:
+
+```python
+sudo python3 mac.py eth0 random
+```
+
+- Revert to original MAC address:
+```python
+sudo python3 mac.py eth0 reset
+```
+
+---
+Example of the script results:
+
+```python
+$ sudo python3 mac.py eth0 00:1A:2B:3C:4D:5E
 Bringing down the network interface eth0...
 Changing MAC address of eth0 to 00:1A:2B:3C:4D:5E...
 Bringing up the network interface eth0...
